@@ -10,6 +10,7 @@ import {
   notFoundHandler,
 } from "./middleware/error.middleware.js";
 import authRoutes from "./routers/auth.routes.js";
+import userRoutes from "./routers/user.routes.js";
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(`${apiPrefix}/auth`, authRoutes);
+app.use(`${apiPrefix}/users`, userRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

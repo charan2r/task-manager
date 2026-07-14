@@ -68,6 +68,45 @@ export const swaggerSpec = swaggerJsdoc({
             },
           },
         },
+        CreateUserRequest: {
+          type: "object",
+          required: ["name", "email", "password", "role"],
+          properties: {
+            name: {
+              type: "string",
+              minLength: 2,
+              maxLength: 20,
+              example: "Alex Morgan",
+            },
+            email: {
+              type: "string",
+              format: "email",
+              example: "alex@example.com",
+            },
+            password: {
+              type: "string",
+              format: "password",
+              minLength: 8,
+              example: "password123",
+            },
+            role: {
+              type: "string",
+              enum: ["PROJECT_MANAGER", "TEAM_MEMBER"],
+              example: "TEAM_MEMBER",
+            },
+          },
+        },
+        UpdateUserRoleRequest: {
+          type: "object",
+          required: ["role"],
+          properties: {
+            role: {
+              type: "string",
+              enum: ["PROJECT_MANAGER", "TEAM_MEMBER"],
+              example: "PROJECT_MANAGER",
+            },
+          },
+        },
         User: {
           type: "object",
           properties: {
