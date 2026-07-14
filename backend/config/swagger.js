@@ -107,6 +107,86 @@ export const swaggerSpec = swaggerJsdoc({
             },
           },
         },
+        CreateProjectRequest: {
+          type: "object",
+          required: ["name"],
+          properties: {
+            name: {
+              type: "string",
+              minLength: 3,
+              maxLength: 50,
+              example: "Website Redesign",
+            },
+            description: {
+              type: "string",
+              nullable: true,
+              maxLength: 100,
+              example: "Refresh the marketing website.",
+            },
+            status: {
+              type: "string",
+              enum: ["ACTIVE", "INACTIVE", "COMPLETED", "CANCELLED"],
+              example: "ACTIVE",
+            },
+            startDate: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+              example: "2026-07-15T09:00:00.000Z",
+            },
+            endDate: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+              example: "2026-08-15T17:00:00.000Z",
+            },
+          },
+        },
+        UpdateProjectRequest: {
+          type: "object",
+          minProperties: 1,
+          properties: {
+            name: {
+              type: "string",
+              minLength: 3,
+              maxLength: 50,
+              example: "Website Launch",
+            },
+            description: {
+              type: "string",
+              nullable: true,
+              maxLength: 100,
+              example: "Prepare the site for launch.",
+            },
+            status: {
+              type: "string",
+              enum: ["ACTIVE", "INACTIVE", "COMPLETED", "CANCELLED"],
+              example: "COMPLETED",
+            },
+            startDate: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+              example: "2026-07-15T09:00:00.000Z",
+            },
+            endDate: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+              example: "2026-08-20T17:00:00.000Z",
+            },
+          },
+        },
+        AddProjectMemberRequest: {
+          type: "object",
+          required: ["userId"],
+          properties: {
+            userId: {
+              type: "integer",
+              example: 3,
+            },
+          },
+        },
         User: {
           type: "object",
           properties: {
@@ -135,6 +215,108 @@ export const swaggerSpec = swaggerJsdoc({
             createdAt: {
               type: "string",
               format: "date-time",
+            },
+          },
+        },
+        ProjectMember: {
+          type: "object",
+          properties: {
+            membershipId: {
+              type: "integer",
+              example: 1,
+            },
+            joinedAt: {
+              type: "string",
+              format: "date-time",
+            },
+            id: {
+              type: "integer",
+              example: 3,
+            },
+            name: {
+              type: "string",
+              example: "Sam Taylor",
+            },
+            email: {
+              type: "string",
+              format: "email",
+              example: "sam@example.com",
+            },
+            role: {
+              type: "string",
+              enum: ["PROJECT_MANAGER", "TEAM_MEMBER"],
+              example: "TEAM_MEMBER",
+            },
+            isActive: {
+              type: "boolean",
+              example: true,
+            },
+          },
+        },
+        Project: {
+          type: "object",
+          properties: {
+            id: {
+              type: "integer",
+              example: 1,
+            },
+            name: {
+              type: "string",
+              example: "Website Redesign",
+            },
+            description: {
+              type: "string",
+              nullable: true,
+              example: "Refresh the marketing website.",
+            },
+            status: {
+              type: "string",
+              enum: ["ACTIVE", "INACTIVE", "COMPLETED", "CANCELLED"],
+              example: "ACTIVE",
+            },
+            startDate: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+            },
+            endDate: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+            },
+            createdById: {
+              type: "integer",
+              example: 1,
+            },
+            createdAt: {
+              type: "string",
+              format: "date-time",
+            },
+            updatedAt: {
+              type: "string",
+              format: "date-time",
+            },
+            createdBy: {
+              $ref: "#/components/schemas/User",
+            },
+            members: {
+              type: "array",
+              items: {
+                type: "object",
+              },
+            },
+            _count: {
+              type: "object",
+              properties: {
+                members: {
+                  type: "integer",
+                  example: 2,
+                },
+                tasks: {
+                  type: "integer",
+                  example: 5,
+                },
+              },
             },
           },
         },
