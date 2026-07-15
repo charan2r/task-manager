@@ -60,7 +60,7 @@ export default function RegisterPage() {
 
     try {
       await register(formData.name, formData.email, formData.password);
-      router.push("/dashboard");
+      router.push("/login");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed");
     } finally {
@@ -148,7 +148,7 @@ export default function RegisterPage() {
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="••••••••"
+              placeholder="Password"
             />
           </div>
 
@@ -167,7 +167,7 @@ export default function RegisterPage() {
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="••••••••"
+              placeholder="Confirm password"
             />
           </div>
 

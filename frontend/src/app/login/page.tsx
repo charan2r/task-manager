@@ -92,7 +92,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="••••••••"
+              placeholder="Password"
             />
           </div>
 
@@ -116,24 +116,6 @@ export default function LoginPage() {
             </p>
           </div>
         </form>
-
-        {/* Demo credentials 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p className="text-sm font-medium text-blue-900 mb-3">
-            Demo Credentials:
-          </p>
-          <div className="space-y-2 text-sm text-blue-800">
-            <p>
-              <strong>Admin:</strong> admin@example.com / admin123
-            </p>
-            <p>
-              <strong>Manager:</strong> manager@example.com / manager123
-            </p>
-            <p>
-              <strong>Member:</strong> member@example.com / member123
-            </p>
-          </div>
-        </div>*/}
       </div>
     </div>
   );
