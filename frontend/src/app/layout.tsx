@@ -4,6 +4,9 @@ import { AuthProvider } from "@/lib/auth-context";
 
 export const metadata: Metadata = {
   title: "Task Manager",
+  icons: {
+    icon: "/task-checklist.png",
+  },
 };
 
 export const viewport: Viewport = {
