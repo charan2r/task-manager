@@ -187,6 +187,89 @@ export const swaggerSpec = swaggerJsdoc({
             },
           },
         },
+        CreateTaskRequest: {
+          type: "object",
+          required: ["title", "projectId"],
+          properties: {
+            title: {
+              type: "string",
+              minLength: 4,
+              maxLength: 150,
+              example: "Build dashboard UI",
+            },
+            description: {
+              type: "string",
+              nullable: true,
+              maxLength: 1000,
+              example: "Create the first version of the project dashboard.",
+            },
+            projectId: {
+              type: "integer",
+              example: 1,
+            },
+            assignedToId: {
+              type: "integer",
+              nullable: true,
+              example: 3,
+            },
+            status: {
+              type: "string",
+              enum: ["TODO", "IN_PROGRESS", "DONE"],
+              example: "TODO",
+            },
+            dueDate: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+              example: "2026-07-25T17:00:00.000Z",
+            },
+          },
+        },
+        UpdateTaskRequest: {
+          type: "object",
+          minProperties: 1,
+          properties: {
+            title: {
+              type: "string",
+              minLength: 4,
+              maxLength: 150,
+              example: "Build dashboard UI",
+            },
+            description: {
+              type: "string",
+              nullable: true,
+              maxLength: 1000,
+              example: "Create the dashboard charts and summary cards.",
+            },
+            assignedToId: {
+              type: "integer",
+              nullable: true,
+              example: 3,
+            },
+            status: {
+              type: "string",
+              enum: ["TODO", "IN_PROGRESS", "DONE"],
+              example: "IN_PROGRESS",
+            },
+            dueDate: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+              example: "2026-07-28T17:00:00.000Z",
+            },
+          },
+        },
+        UpdateTaskStatusRequest: {
+          type: "object",
+          required: ["status"],
+          properties: {
+            status: {
+              type: "string",
+              enum: ["TODO", "IN_PROGRESS", "DONE"],
+              example: "DONE",
+            },
+          },
+        },
         User: {
           type: "object",
           properties: {
@@ -215,6 +298,83 @@ export const swaggerSpec = swaggerJsdoc({
             createdAt: {
               type: "string",
               format: "date-time",
+            },
+          },
+        },
+        Task: {
+          type: "object",
+          properties: {
+            id: {
+              type: "integer",
+              example: 1,
+            },
+            title: {
+              type: "string",
+              example: "Build dashboard UI",
+            },
+            description: {
+              type: "string",
+              nullable: true,
+              example: "Create the first version of the project dashboard.",
+            },
+            status: {
+              type: "string",
+              enum: ["TODO", "IN_PROGRESS", "DONE"],
+              example: "IN_PROGRESS",
+            },
+            dueDate: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+            },
+            projectId: {
+              type: "integer",
+              example: 1,
+            },
+            assignedToId: {
+              type: "integer",
+              nullable: true,
+              example: 3,
+            },
+            createdById: {
+              type: "integer",
+              example: 1,
+            },
+            createdAt: {
+              type: "string",
+              format: "date-time",
+            },
+            updatedAt: {
+              type: "string",
+              format: "date-time",
+            },
+            project: {
+              type: "object",
+              properties: {
+                id: {
+                  type: "integer",
+                  example: 1,
+                },
+                name: {
+                  type: "string",
+                  example: "Website Redesign",
+                },
+                status: {
+                  type: "string",
+                  example: "ACTIVE",
+                },
+                createdById: {
+                  type: "integer",
+                  example: 1,
+                },
+              },
+            },
+            assignedTo: {
+              nullable: true,
+              allOf: [{ $ref: "#/components/schemas/User" }],
+            },
+            createdBy: {
+              $ref: "#/components/schemas/User",
             },
           },
         },

@@ -12,6 +12,7 @@ import {
 import authRoutes from "./routers/auth.routes.js";
 import userRoutes from "./routers/user.routes.js";
 import projectRoutes from "./routers/project.routes.js";
+import taskRoutes from "./routers/task.routes.js";
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(`${apiPrefix}/auth`, authRoutes);
 app.use(`${apiPrefix}/users`, userRoutes);
 app.use(`${apiPrefix}/projects`, projectRoutes);
+app.use(`${apiPrefix}/tasks`, taskRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

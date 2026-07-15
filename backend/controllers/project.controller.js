@@ -580,23 +580,31 @@ export async function removeProjectMember(req, res, next) {
       });
     }
 
-    await prisma.projectMember.delete({
-      where: {
-        projectId_userId: {
+    await prisma.$transaction([
+      prisma.task.updateMany({
+        where: {
           projectId,
-          userId,
+          assignedToId: userId,
         },
-      },
-    });
+        data: {
+          assignedToId: null,
+        },
+      }),
 
-    /*
-     * Later, after task APIs are implemented, decide whether removing
-     * a member should also unassign their project tasks.
-     */
+      prisma.projectMember.delete({
+        where: {
+          projectId_userId: {
+            projectId,
+            userId,
+          },
+        },
+      }),
+    ]);
 
     return res.status(200).json({
       success: true,
-      message: "Project member removed successfully.",
+      message:
+        "Project member removed and their project tasks were unassigned.",
     });
   } catch (error) {
     next(error);
