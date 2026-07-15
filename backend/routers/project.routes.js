@@ -3,6 +3,7 @@ import {
   assignProjectMember,
   createProject,
   deleteProject,
+  getAvailableProjectMembers,
   getProjectById,
   getProjectMembers,
   getProjects,
@@ -29,7 +30,6 @@ const router = Router();
 
 router.use(authenticate);
 
-// Only admins can view all projects.
 /**
  * @swagger
  * /projects:
@@ -62,10 +62,8 @@ router.use(authenticate);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
- *       403:
- *         description: Only administrators can view all projects.
  */
-router.get("/", authorizeRoles("ADMIN"), getProjects);
+router.get("/", getProjects);
 
 /**
  * @swagger
@@ -149,6 +147,39 @@ router.get("/:id", getProjectById);
  *         description: Project not found.
  */
 router.get("/:id/members", getProjectMembers);
+
+/**
+ * @swagger
+ * /projects/{id}/available-members:
+ *   get:
+ *     summary: Get unassigned team members available for a project
+ *     tags: [Projects]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Project ID.
+ *     responses:
+ *       200:
+ *         description: Available team members returned successfully.
+ *       400:
+ *         description: Invalid project ID.
+ *       401:
+ *         description: Authentication token is missing.
+ *       403:
+ *         description: You can only view available members for projects that you manage.
+ *       404:
+ *         description: Project not found.
+ */
+router.get(
+  "/:id/available-members",
+  authorizeRoles("ADMIN", "PROJECT_MANAGER"),
+  getAvailableProjectMembers,
+);
 
 // Only admins and project managers can create or manage projects.
 /**

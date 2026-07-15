@@ -422,6 +422,69 @@ export async function getProjectMembers(req, res, next) {
   }
 }
 
+// Get team members who are not assigned to any project.
+export async function getAvailableProjectMembers(req, res, next) {
+  try {
+    const projectId = parseId(req.params.id);
+
+    if (!projectId) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid project ID.",
+      });
+    }
+
+    const project = await prisma.project.findUnique({
+      where: {
+        id: projectId,
+      },
+    });
+
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        message: "Project not found.",
+      });
+    }
+
+    if (!canManageProject(req.user, project)) {
+      return res.status(403).json({
+        success: false,
+        message:
+          "You can only view available members for projects that you manage.",
+      });
+    }
+
+    const members = await prisma.user.findMany({
+      where: {
+        role: "TEAM_MEMBER",
+        isActive: true,
+        projectMembers: {
+          none: {},
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        isActive: true,
+      },
+      orderBy: {
+        name: "asc",
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      count: members.length,
+      members,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 // Assign project member by a project manager or an admin
 export async function assignProjectMember(req, res, next) {
   try {

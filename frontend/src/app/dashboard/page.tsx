@@ -20,7 +20,7 @@ const dashboardByRole = {
       { title: "View Tasks", href: "/dashboard/tasks", icon: CheckSquare },
       {
         title: "Create New Project",
-        href: "/dashboard/projects/new",
+        href: "/dashboard/projects?create=1",
         icon: FolderPlus,
       },
     ],
@@ -30,7 +30,7 @@ const dashboardByRole = {
     subtitle:
       "Create projects, manage your project work, and coordinate tasks.",
     actions: [
-      { title: "Create Project", href: "/dashboard/projects/new", icon: FolderPlus },
+      { title: "Create Project", href: "/dashboard/projects?create=1", icon: FolderPlus },
       { title: "View My Projects", href: "/dashboard/projects", icon: FolderOpen },
       { title: "Create Task", href: "/dashboard/tasks", icon: PlusSquare },
     ],

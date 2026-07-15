@@ -2,6 +2,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { API_BASE_URL } from "@/lib/api";
 
 export type UserRole = "ADMIN" | "PROJECT_MANAGER" | "TEAM_MEMBER";
 
@@ -31,8 +32,6 @@ type AuthResponse = {
   user?: User;
   errors?: { field?: string; message: string }[];
 };
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 async function apiRequest<T>(
   path: string,
