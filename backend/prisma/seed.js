@@ -3,9 +3,9 @@ import bcrypt from "bcrypt";
 import prisma from "../config/prisma.js";
 
 async function main() {
-  const adminEmail = "admin44@gmail.com";
-  const adminPassword = "admin123";
-  const adminName = "System Admin";
+  const adminEmail = "your_admin_email";
+  const adminPassword = "your_admin_password";
+  const adminName = "your_admin_name";
 
   const existingAdmin = await prisma.user.findUnique({
     where: {
